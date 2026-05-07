@@ -1,0 +1,565 @@
+:root {
+    --bg-color: #050505;
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --accent-color: #ffffff;
+    --accent-glow: rgba(255, 255, 255, 0.15);
+    --glass-bg: rgba(20, 20, 20, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Background Effects */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.glow-point {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(80px);
+    transition: transform 0.1s ease-out;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.accent {
+    color: var(--accent-color);
+    text-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.8), transparent);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.logo span {
+    font-weight: 300;
+    opacity: 0.7;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+.nav-cta {
+    background: var(--text-primary);
+    color: var(--bg-color) !important;
+    padding: 0.8rem 1.5rem;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
+.audio-control {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    background: rgba(255,255,255,0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.audio-control:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.audio-text {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the side */
+    position: relative;
+    padding-top: 160px;
+    padding-bottom: 120px;
+    background: linear-gradient(to bottom, rgba(5, 5, 5, 0.7), rgba(5, 5, 5, 0.9)), 
+                url('ChatGPT Image May 7, 2026, 09_55_24 PM.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.hero .container {
+    margin-left: 0; /* Move container to the side */
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 8vw, 5.5rem); /* Responsive font size */
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s forwards;
+}
+
+.sub-headline {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s 0.2s forwards;
+}
+
+.cta-group {
+    display: flex;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s 0.4s forwards;
+}
+
+.btn {
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.btn-primary {
+    background: var(--text-primary);
+    color: var(--bg-color);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary {
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-primary);
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 5%; /* Moved to the side */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0.5;
+}
+
+.scroll-indicator span {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.mouse {
+    width: 25px;
+    height: 40px;
+    border: 2px solid var(--text-primary);
+    border-radius: 20px;
+    position: relative;
+}
+
+.mouse::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 8px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    animation: scrollMouse 2s infinite;
+}
+
+/* Sections */
+section {
+    padding: 6rem 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.section-tag {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* About Section */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.about h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.about p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.visual-box {
+    aspect-ratio: 4/5;
+    padding: 1.5rem;
+}
+
+.visual-inner {
+    width: 100%;
+    height: 100%;
+    background: url('ChatGPT Image May 7, 2026, 09_56_36 PM.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+}
+
+@keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Services Section */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.service-icon {
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.service-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Portfolio Section */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.portfolio-item {
+    overflow: hidden;
+}
+
+.portfolio-image {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    background-size: cover;
+    background-position: center;
+    transition: var(--transition);
+    position: relative;
+}
+
+.portfolio-image::before {
+    content: 'PREVIEW';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.7rem;
+    letter-spacing: 5px;
+    opacity: 0.2;
+}
+
+.portfolio-item:hover .portfolio-image {
+    transform: scale(1.05);
+}
+
+#portfolio-img-3 { 
+    background-image: url('a_High-end_business_fl.jpeg'); 
+}
+
+#portfolio-img-3::before {
+    display: none;
+}
+
+#portfolio-img-1 { 
+    background-image: url('Gemini_Generated_Image_67qxfr67qxfr67qx (1).png'); 
+}
+
+#portfolio-img-1::before {
+    display: none;
+}
+
+#portfolio-img-2 { 
+    background-image: url('ChatGPT Image May 7, 2026, 10_09_47 PM.png'); 
+}
+
+#portfolio-img-2::before {
+    display: none;
+}
+
+#portfolio-img-4 { 
+    background-image: url('seedream-5.0-lite_b_Clean_grid_of_luxury.jpeg'); 
+}
+
+#portfolio-img-4::before {
+    display: none;
+}
+
+.portfolio-info {
+    padding: 2rem;
+}
+
+/* Audio Control Active State */
+.audio-control.playing {
+    border-color: var(--text-primary);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.audio-control.playing .audio-icon {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.portfolio-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.portfolio-info p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+/* Contact Section */
+.contact-box {
+    padding: 5rem;
+    text-align: center;
+}
+
+.contact-box h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-box p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
+
+.email-link {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.social-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    color: var(--text-primary);
+}
+
+/* Footer */
+footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--glass-border);
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scrollMouse {
+    0% { transform: translate(-50%, 0); opacity: 0; }
+    50% { transform: translate(-50%, 15px); opacity: 1; }
+    100% { transform: translate(-50%, 30px); opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    .services-grid, .portfolio-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 3.5rem; }
+    .services-grid, .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+    nav .nav-links { display: none; }
+    .contact-box { padding: 3rem 1.5rem; }
+    .contact-box h2 { font-size: 2.5rem; }
+}
